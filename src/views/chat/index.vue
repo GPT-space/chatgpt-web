@@ -486,7 +486,7 @@ onUnmounted(() => {
               <img v-if="isMobile" class="mb-3 w-52" src="http://static.runbook.run/assets/wechat-logo.png" alt="微信">
               <div class="flex items-center">
                 <SvgIcon icon="ri:bubble-chart-fill" class="mr-2 text-3xl" />
-                <span>免费AI，关注公众号不迷路</span>
+                <span>免费AI，关注公众号【AI拓荒者】不迷路</span>
               </div>
             </div>
           </template>
