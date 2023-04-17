@@ -80,7 +80,7 @@ watch(
           <List />
         </div>
         <div class="p-4">
-          <img class="w-full mb-3" src="https://static.whatfa.com/assets/wechat-logo.png" alt="微信">
+          <img class="w-full mb-3" src="http://static.runbook.run/assets/wechat-logo.png" alt="微信">
           <NButton block @click="show = true">
             {{ $t('store.siderButton') }}
           </NButton>
