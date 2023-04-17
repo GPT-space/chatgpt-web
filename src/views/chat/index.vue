@@ -18,6 +18,7 @@ import { useChatStore, usePromptStore } from '@/store'
 import { fetchChatAPIProcess } from '@/api'
 import { t } from '@/locales'
 import { WeChatLogin } from '@/components/custom'
+import useEnvConfig from '@/hooks/useEnvConfig'
 
 let controller = new AbortController()
 
@@ -36,6 +37,7 @@ const { addChat, updateChat, updateChatSome, getChatByUuidAndIndex } = useChat()
 const { scrollRef, scrollToBottom, scrollToBottomIfAtBottom } = useScroll()
 const { usingContext, toggleUsingContext } = useUsingContext()
 const { showWeChatModal, weChatModalShow } = useWeChat()
+const {APP_TIMES_LOGIN}=useEnvConfig()
 
 const { uuid } = route.params as { uuid: string }
 
@@ -61,7 +63,7 @@ dataSources.value.forEach((item, index) => {
 function handleSubmit() {
   // 检查次数
   const times = 10
-  if (times >= 10) {
+  if (APP_TIMES_LOGIN&&times >= APP_TIMES_LOGIN) {
     showWeChatModal()
     return
   }
