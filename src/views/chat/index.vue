@@ -11,11 +11,13 @@ import { useChat } from './hooks/useChat'
 import { useCopyCode } from './hooks/useCopyCode'
 import { useUsingContext } from './hooks/useUsingContext'
 import HeaderComponent from './components/Header/index.vue'
+import useWeChat from './hooks/useWeChat'
 import { HoverButton, SvgIcon } from '@/components/common'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
 import { useChatStore, usePromptStore } from '@/store'
 import { fetchChatAPIProcess } from '@/api'
 import { t } from '@/locales'
+import { WeChatLogin } from '@/components/custom'
 
 let controller = new AbortController()
 
@@ -33,6 +35,7 @@ const { isMobile } = useBasicLayout()
 const { addChat, updateChat, updateChatSome, getChatByUuidAndIndex } = useChat()
 const { scrollRef, scrollToBottom, scrollToBottomIfAtBottom } = useScroll()
 const { usingContext, toggleUsingContext } = useUsingContext()
+const { showWeChatModal, weChatModalShow } = useWeChat()
 
 const { uuid } = route.params as { uuid: string }
 
@@ -56,6 +59,13 @@ dataSources.value.forEach((item, index) => {
 })
 
 function handleSubmit() {
+  // 检查次数
+  const times = 10
+  if (times >= 10) {
+    showWeChatModal()
+    return
+  }
+
   onConversation()
 }
 
@@ -467,6 +477,7 @@ onUnmounted(() => {
 </script>
 
 <template>
+  <WeChatLogin v-model:show="weChatModalShow" />
   <div class="flex flex-col w-full h-full">
     <HeaderComponent
       v-if="isMobile"
