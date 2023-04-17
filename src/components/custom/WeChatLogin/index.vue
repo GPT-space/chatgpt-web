@@ -53,7 +53,7 @@ const getQrCodeUrl=()=>{
   // return 'https://static.runbook.run/assets/qrcode.jpg'
   setTimeout(() => {
     qrCodeUrl.value='https://static.runbook.run/assets/qrcode.jpg'
-  }, 500);
+  }, 4000);
 
 }
 
@@ -70,8 +70,7 @@ watch(showModal, (newValue) => {
 </script>
 
 <template>
-  <div>
-    <NModal v-model:show="showModal">
+    <NModal v-model:show="showModal" display-directive="if">
       <NCard
         :style="{ width: isMobile ? '300px' : '450px' }"
         :bordered="false"
@@ -99,7 +98,6 @@ watch(showModal, (newValue) => {
         </NSpace>
       </NCard>
     </NModal>
-  </div>
 </template>
 
 <style>
