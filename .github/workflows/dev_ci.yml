@@ -1,0 +1,20 @@
+name: deploy
+on:
+  push:
+    branches: [ develop ]
+  pull_request:
+    branches: [ develop ]
+  workflow_dispatch:
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: executing remote ssh commands to develop
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST_20M }}
+        username: ${{ secrets.USERNAME_20M }}
+        # key: ${{ secrets.DEPLOY_SECRET }}
+        password: ${{ secrets.PASSWORD_20M }}
+        # script: cd [path] && git pull && sudo supervisorctl restart param
+        script: whoami
