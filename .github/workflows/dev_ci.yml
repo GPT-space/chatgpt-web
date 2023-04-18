@@ -13,7 +13,7 @@ jobs:
       uses: appleboy/ssh-action@master
       env:
         #服务器上项目路径
-        DEV_PROJECT_SERVER_LINUX_PATH: ${{ PROJECT_SERVER_LINUX_PATH }}
+        DEV_PROJECT_SERVER_LINUX_PATH: ${{ secrets.DEV_PROJECT_SERVER_LINUX_PATH }}
         LISTEN_IP: "127.0.0.1"
         EXPOSE_PORT: "3002"
         JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
