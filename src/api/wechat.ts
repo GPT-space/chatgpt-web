@@ -15,6 +15,6 @@ export function fetchChatAPI<T = any>(
 
 export function fetchWechatQRCode() {
   return get({
-    url: '/prod-api/wx/selectQrCode',
+    url: '/wx/selectQrCode',
   })
 }
