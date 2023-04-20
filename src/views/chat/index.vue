@@ -60,7 +60,7 @@ dataSources.value.forEach((item, index) => {
     updateChatSome(+uuid, index, { loading: false })
 })
 
-function handleSubmit() {
+async function  handleSubmit() {
   // 检查次数
   const times = 10
   if (APP_TIMES_LOGIN&&times >= APP_TIMES_LOGIN) {

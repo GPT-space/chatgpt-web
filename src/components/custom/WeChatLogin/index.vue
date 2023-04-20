@@ -3,6 +3,8 @@ import { computed, ref, watch } from 'vue'
 import { NButton, NCard, NImage, NModal, NSpace, NSpin ,useMessage} from 'naive-ui'
 import { SvgIcon } from '@/components/common'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
+import { fetchWechatQRCode } from '@/api/wechat';
+import { makeQRCodeUrl } from '@/utils/wechat';
 
 interface IEmit {
   (event: 'update:show', value: boolean): void
@@ -49,15 +51,22 @@ const handleReScan = () => {
   hadScanned.value = false
 }
 
-const getQrCodeUrl=()=>{
-  // return 'https://static.runbook.run/assets/qrcode.jpg'
-  setTimeout(() => {
-    qrCodeUrl.value='https://static.runbook.run/assets/qrcode.jpg'
-  }, 4000);
+// const getQrCodeUrl=()=>{
+//   // return 'https://static.runbook.run/assets/qrcode.jpg'
+//   setTimeout(() => {
+//     qrCodeUrl.value='https://static.runbook.run/assets/qrcode.jpg'
+//   }, 4000);
 
+// }
+
+// getQrCodeUrl()
+
+const fetchData=async ()=>{
+  const {data}= await fetchWechatQRCode()
+    const url=makeQRCodeUrl(data.ticket)
+    qrCodeUrl.value=url
+    console.log(url)
 }
-
-getQrCodeUrl()
 
 watch(() => props.show, (newValue) => {
   if (newValue !== showModal.value)
@@ -66,6 +75,9 @@ watch(() => props.show, (newValue) => {
 
 watch(showModal, (newValue) => {
   emit('update:show', newValue)
+  if(showModal.value){
+    fetchData()
+  }
 })
 </script>
 
