@@ -36,6 +36,13 @@ export default defineConfig((env) => {
       port: 1002,
       open: false,
       proxy: {
+        '/api/prod-api':{
+          target: 'http://ai.wyoto.cn:8095/',
+          changeOrigin: true,
+          rewrite: path =>{
+           return  path.replace('/api/prod-api', '/prod-api')
+          },
+        },
         '/api': {
           target: viteEnv.VITE_APP_API_BASE_URL,
           changeOrigin: true, // 允许跨域
