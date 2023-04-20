@@ -37,7 +37,7 @@ const { addChat, updateChat, updateChatSome, getChatByUuidAndIndex } = useChat()
 const { scrollRef, scrollToBottom, scrollToBottomIfAtBottom } = useScroll()
 const { usingContext, toggleUsingContext } = useUsingContext()
 const { showWeChatModal, weChatModalShow } = useWeChat()
-const {APP_TIMES_LOGIN}=useEnvConfig()
+const { APP_TIMES_LOGIN } = useEnvConfig()
 
 const { uuid } = route.params as { uuid: string }
 
@@ -51,7 +51,7 @@ const inputRef = ref<Ref | null>(null)
 // 添加PromptStore
 const promptStore = usePromptStore()
 
-// 使用storeToRefs，保证store修改后，联想部分能够重新渲染 
+// 使用storeToRefs，保证store修改后，联想部分能够重新渲染
 const { promptList: promptTemplate } = storeToRefs<any>(promptStore)
 
 // 未知原因刷新页面，loading 状态不会重置，手动重置
@@ -60,10 +60,10 @@ dataSources.value.forEach((item, index) => {
     updateChatSome(+uuid, index, { loading: false })
 })
 
-async function  handleSubmit() {
+async function handleSubmit() {
   // 检查次数
   const times = 10
-  if (APP_TIMES_LOGIN&&times >= APP_TIMES_LOGIN) {
+  if (APP_TIMES_LOGIN && times >= APP_TIMES_LOGIN) {
     showWeChatModal()
     return
   }

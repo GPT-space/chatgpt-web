@@ -1,6 +1,5 @@
-import type { AxiosProgressEvent, GenericAbortSignal } from 'axios'
-import { post,get } from '@/utils/request'
-import { useSettingStore } from '@/store'
+import type { GenericAbortSignal } from 'axios'
+import { get, post } from '@/utils/request'
 
 export function fetchChatAPI<T = any>(
   prompt: string,
@@ -14,8 +13,8 @@ export function fetchChatAPI<T = any>(
   })
 }
 
-export function fetchWechatQRCode(){
+export function fetchWechatQRCode() {
   return get({
-    url:'/prod-api/wx/selectQrCode',
+    url: '/prod-api/wx/selectQrCode',
   })
 }

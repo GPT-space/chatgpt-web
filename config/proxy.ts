@@ -10,14 +10,13 @@ export function createViteProxy(isOpenProxy: boolean, viteEnv: ImportMetaEnv) {
       changeOrigin: true,
       rewrite: path => path.replace('/api/', '/'),
     },
-    '/prod-api':{
+    '/prod-api': {
       target: 'http://ai.wyoto.cn:8095/',
       changeOrigin: true,
-      rewrite: path =>{
-      console.log(path)
-       return  path.replace('/api/', '/')
+      rewrite: (path) => {
+        return path.replace('/api/', '/')
       },
-    }
+    },
   }
 
   return proxy

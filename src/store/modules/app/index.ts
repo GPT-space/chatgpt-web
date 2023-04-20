@@ -30,6 +30,7 @@ export const useAppStore = defineStore('app-store', {
 })
 
 export function useAppStoreWithOut() {
-  if(!store)return useAppStore(createPinia())
+  if (!store)
+    return useAppStore(createPinia())
   return useAppStore(store)
 }

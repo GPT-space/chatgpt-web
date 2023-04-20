@@ -1,10 +1,8 @@
-export function isWechat(){  
-  var ua = navigator.userAgent.toLowerCase();
-  　　var isWechat = ua.indexOf('micromessenger') != -1;
-  　　if (isWechat) {
-     　　 return true;
-  　　}else{
-     　　 return false;      
-  　　}
-  
-}  
+export function isWechat() {
+  const ua = navigator.userAgent.toLowerCase()
+  const isWechat = ua.includes('micromessenger')
+  if (isWechat)
+    return true
+  else
+    return false
+}
