@@ -1,10 +1,10 @@
 <script  lang="ts" setup>
 import { computed, ref, watch } from 'vue'
-import { NButton, NCard, NImage, NModal, NSpace, NSpin ,useMessage} from 'naive-ui'
+import { NButton, NCard, NImage, NModal, NSpace, NSpin, useMessage } from 'naive-ui'
 import { SvgIcon } from '@/components/common'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
-import { fetchWechatQRCode } from '@/api/wechat';
-import { makeQRCodeUrl } from '@/utils/wechat';
+import { fetchWechatQRCode } from '@/api/wechat'
+import { makeQRCodeUrl } from '@/utils/wechat'
 
 interface IEmit {
   (event: 'update:show', value: boolean): void
@@ -20,12 +20,11 @@ const emit = defineEmits<IEmit>()
 
 const { isMobile } = useBasicLayout()
 
-
 const showModal = ref(props.show)
 const hadScanned = ref(false) // 用户扫码成功
-const qrCodeUrl=ref('')
+const qrCodeUrl = ref('')
 
-const message=useMessage()
+const message = useMessage()
 
 const subtitle = computed(() => {
   if (hadScanned.value)
@@ -33,18 +32,16 @@ const subtitle = computed(() => {
   return '微信扫码关注后继续使用'
 })
 
-
-
-const handleSuccess=()=>{
+const handleSuccess = () => {
   message.success('登录成功')
-  hadScanned.value=false
-  showModal.value=false
+  hadScanned.value = false
+  showModal.value = false
 }
-const handleClickCard=()=>{
-  hadScanned.value=!hadScanned.value
-  setTimeout(()=>{
+const handleClickCard = () => {
+  hadScanned.value = !hadScanned.value
+  setTimeout(() => {
     handleSuccess()
-  },1000)
+  }, 1000)
 }
 
 const handleReScan = () => {
@@ -61,11 +58,10 @@ const handleReScan = () => {
 
 // getQrCodeUrl()
 
-const fetchData=async ()=>{
-  const {data}= await fetchWechatQRCode()
-    const url=makeQRCodeUrl(data.ticket)
-    qrCodeUrl.value=url
-    console.log(url)
+const fetchData = async () => {
+  const { data } = await fetchWechatQRCode()
+  const url = makeQRCodeUrl(data.ticket)
+  qrCodeUrl.value = url
 }
 
 watch(() => props.show, (newValue) => {
@@ -75,41 +71,40 @@ watch(() => props.show, (newValue) => {
 
 watch(showModal, (newValue) => {
   emit('update:show', newValue)
-  if(showModal.value){
+  if (showModal.value)
     fetchData()
-  }
 })
 </script>
 
 <template>
-    <NModal v-model:show="showModal" display-directive="if">
-      <NCard
-        :style="{ width: isMobile ? '300px' : '450px' }"
-        :bordered="false"
-        size="huge"
-        role="dialog"
-        aria-modal="true"
-        @click="handleClickCard"
-      >
-        <NSpace vertical justify="center" align="center">
-          <div class="flex flex-col items-center">
-            <div class="flex items-center">
-              <SvgIcon class="text-xl mr-1 text-[#3fab40]" icon="ri:wechat-fill" />
-              <span class="text-base md:text-lg ">微信公众号【AI拓荒者】</span>
-            </div>
+  <NModal v-model:show="showModal" display-directive="if">
+    <NCard
+      :style="{ width: isMobile ? '300px' : '450px' }"
+      :bordered="false"
+      size="huge"
+      role="dialog"
+      aria-modal="true"
+      @click="handleClickCard"
+    >
+      <NSpace vertical justify="center" align="center">
+        <div class="flex flex-col items-center">
+          <div class="flex items-center">
+            <SvgIcon class="text-xl mr-1 text-[#3fab40]" icon="ri:wechat-fill" />
+            <span class="text-base md:text-lg ">微信公众号【AI拓荒者】</span>
           </div>
-          <NSpin size="medium" :show="hadScanned">
-            <NImage preview-disabled :src="qrCodeUrl" />
-          </NSpin>
-          <NButton v-show="hadScanned" type="primary" size="large" @click.stop="handleReScan">
-            重新扫码
-          </NButton>
-          <div class="text-sm md:text-base text-neutral-600">
-            {{ subtitle }}
-          </div>
-        </NSpace>
-      </NCard>
-    </NModal>
+        </div>
+        <NSpin size="medium" :show="hadScanned">
+          <NImage preview-disabled :src="qrCodeUrl" />
+        </NSpin>
+        <NButton v-show="hadScanned" type="primary" size="large" @click.stop="handleReScan">
+          重新扫码
+        </NButton>
+        <div class="text-sm md:text-base text-neutral-600">
+          {{ subtitle }}
+        </div>
+      </NSpace>
+    </NCard>
+  </NModal>
 </template>
 
 <style>
