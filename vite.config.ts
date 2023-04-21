@@ -36,22 +36,19 @@ export default defineConfig((env) => {
       port: 1002,
       open: false,
       proxy: {
-        '/api/wx': {
-          target: viteEnv.VITE_APP_MANAGER_API_BASE_URL,
-          changeOrigin: true,
+        '/api/chat': {
+          target: viteEnv.VITE_APP_API_BASE_URL,
+          changeOrigin: true, // 允许跨域
           rewrite: (path) => {
-            console.log('/api/wx',path);
-            
-            // return path.replace('/api/prod-api', '/prod-api')
+            // console.log('path:',path,path.replace('/api/', '/'))
             return path
           },
         },
         '/api': {
-          target: viteEnv.VITE_APP_API_BASE_URL,
-          changeOrigin: true, // 允许跨域
+          target: viteEnv.VITE_APP_MANAGER_API_BASE_URL,
+          changeOrigin: true,
           rewrite: (path) => {
-            console.log('path:',path,path.replace('/api/', '/'))
-            // return path.replace('/api/', '/')
+            // console.log('/api/wx',path);
             return path
           },
         },

@@ -2,21 +2,21 @@ import type { AxiosProgressEvent, GenericAbortSignal } from 'axios'
 import { post } from '@/utils/request'
 import { useSettingStore } from '@/store'
 
-export function fetchChatAPI<T = any>(
-  prompt: string,
-  options?: { conversationId?: string; parentMessageId?: string },
-  signal?: GenericAbortSignal,
-) {
-  return post<T>({
-    url: '/chat',
-    data: { prompt, options },
-    signal,
-  })
-}
+// export function fetchChatAPI<T = any>(
+//   prompt: string,
+//   options?: { conversationId?: string; parentMessageId?: string },
+//   signal?: GenericAbortSignal,
+// ) {
+//   return post<T>({
+//     url: '/chat',
+//     data: { prompt, options },
+//     signal,
+//   })
+// }
 
 export function fetchChatConfig<T = any>() {
   return post<T>({
-    url: '/config',
+    url: '/chat/config',
   })
 }
 
@@ -30,7 +30,7 @@ export function fetchChatAPIProcess<T = any>(
   const settingStore = useSettingStore()
 
   return post<T>({
-    url: '/chat-process',
+    url: '/chat/chat-process',
     data: { prompt: params.prompt, options: params.options, systemMessage: settingStore.systemMessage },
     signal: params.signal,
     onDownloadProgress: params.onDownloadProgress,
@@ -39,13 +39,13 @@ export function fetchChatAPIProcess<T = any>(
 
 export function fetchSession<T>() {
   return post<T>({
-    url: '/session',
+    url: '/chat/session',
   })
 }
 
 export function fetchVerify<T>(token: string) {
   return post<T>({
-    url: '/verify',
+    url: '/chat/verify',
     data: { token },
   })
 }
@@ -53,7 +53,7 @@ export function fetchVerify<T>(token: string) {
 // 登录
 export function signin<T>(username: string, password: string) {
   return post<T>({
-    url: '/user/signin',
+    url: '/chat/user/signin',
     data: {
       username,
       password,
@@ -63,7 +63,7 @@ export function signin<T>(username: string, password: string) {
 // 注册
 export function register<T>(username: string, password: string) {
   return post<T>({
-    url: '/user/signup',
+    url: '/chat/user/signup',
     data: {
       username,
       password,
