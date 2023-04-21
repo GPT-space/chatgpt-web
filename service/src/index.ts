@@ -102,10 +102,10 @@ router.post('/verify', async (req, res) => {
 
 initDatabase()
 app.use('', router)
-app.use('/api', router)
-app.use('/api/user', userRouter)
-app.use('/api/history', historyRouter)
-app.use('/api/actor', actorRouter)
+app.use('/api/chat', router)
+app.use('/api/chat/user', userRouter)
+app.use('/api/chat/history', historyRouter)
+app.use('/api/chat/actor', actorRouter)
 app.set('trust proxy', 1)
 
 app.listen(3002, () => globalThis.console.log('Server is running on port 3002'))

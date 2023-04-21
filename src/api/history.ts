@@ -13,7 +13,7 @@ export interface IHistoryRes {
 // 注册
 export function fetchHistory(payload: IHistoryPayload) {
   return post<IHistoryRes>({
-    url: '/history/page',
+    url: '/chat/history/page',
     data: payload,
   })
 }

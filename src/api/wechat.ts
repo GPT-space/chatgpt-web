@@ -1,20 +1,7 @@
-import type { GenericAbortSignal } from 'axios'
-import { get, post } from '@/utils/request'
-
-export function fetchChatAPI<T = any>(
-  prompt: string,
-  options?: { conversationId?: string; parentMessageId?: string },
-  signal?: GenericAbortSignal,
-) {
-  return post<T>({
-    url: '/chat',
-    data: { prompt, options },
-    signal,
-  })
-}
+import { get } from '@/utils/request'
 
 export function fetchWechatQRCode() {
   return get({
-    url: '/prod-api/wx/selectQrCode',
+    url: '/wx/selectQrCode',
   })
 }
