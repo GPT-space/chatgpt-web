@@ -12,7 +12,11 @@ export const useChatStore = defineStore('chat-store', {
         return state.history[index]
       return null
     },
-
+    getUserAllChatCount(state:Chat.ChatState){
+      let count=0
+       state.chat.forEach(chat=>chat.data.forEach(data=>data.inversion&&count++))
+       return count
+    },
     getChatByUuid(state: Chat.ChatState) {
       return (uuid?: number) => {
         if (uuid)

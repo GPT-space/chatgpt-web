@@ -14,7 +14,7 @@ import HeaderComponent from './components/Header/index.vue'
 import useWeChat from './hooks/useWeChat'
 import { HoverButton, SvgIcon } from '@/components/common'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
-import { useChatStore, usePromptStore } from '@/store'
+import { useChatStore, usePromptStore, useUserStore } from '@/store'
 import { fetchChatAPIProcess } from '@/api'
 import { t } from '@/locales'
 import { WeChatLogin } from '@/components/custom'
@@ -29,6 +29,7 @@ const dialog = useDialog()
 const ms = useMessage()
 
 const chatStore = useChatStore()
+const userStore = useUserStore()
 
 useCopyCode()
 
@@ -60,11 +61,11 @@ dataSources.value.forEach((item, index) => {
     updateChatSome(+uuid, index, { loading: false })
 })
 
+const userChatCount = computed(()=>chatStore.getUserAllChatCount)
+const needFellowWechat = computed(()=>APP_TIMES_LOGIN>0&&!userStore.userInfo.hadFellowWechat&&userChatCount.value>APP_TIMES_LOGIN)
 async function handleSubmit() {
-  // 检查次数
-  const times = 10
-  // if (APP_TIMES_LOGIN && times >= APP_TIMES_LOGIN) {
-  if (times >= APP_TIMES_LOGIN) {
+  if(needFellowWechat){
+    //微信登录
     showWeChatModal()
     return
   }

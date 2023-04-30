@@ -5,6 +5,9 @@ import { defaultSetting, getLocalState, setLocalState } from './helper'
 export const useUserStore = defineStore('user-store', {
   state: (): UserState => getLocalState(),
   actions: {
+    setFellowWechat(status:boolean){
+      this.userInfo={...this.userInfo,hadFellowWechat: status}
+    },
     updateUserInfo(userInfo: Partial<UserInfo>) {
       this.userInfo = { ...this.userInfo, ...userInfo }
       this.recordState()

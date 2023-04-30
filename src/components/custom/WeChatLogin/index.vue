@@ -3,8 +3,9 @@ import { computed, ref, watch } from 'vue'
 import { NButton, NCard, NImage, NModal, NSpace, NSpin, useMessage } from 'naive-ui'
 import { SvgIcon } from '@/components/common'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
-import { fetchWechatQRCode } from '@/api/wechat'
+import { fetchUserStatus, fetchWechatQRCode } from '@/api/wechat'
 import { makeQRCodeUrl } from '@/utils/wechat'
+import { sleep } from '@/utils/promise'
 
 interface IEmit {
   (event: 'update:show', value: boolean): void
@@ -58,10 +59,28 @@ const handleReScan = () => {
 
 // getQrCodeUrl()
 
+/**监听扫码 */
+const listenScanning=async (ticket:string)=>{
+  if(!ticket)return
+
+  while(true){
+    if(!showModal.value)return
+    const {data}=await fetchUserStatus(ticket)
+  console.log('---fetchUserStatus',data);
+  await sleep(1000)
+  }
+ 
+  
+
+  
+} 
+
 const fetchData = async () => {
   const { data } = await fetchWechatQRCode()
-  const url = makeQRCodeUrl(data.ticket)
+  const {ticket}=data||{}
+  const url = makeQRCodeUrl(ticket)
   qrCodeUrl.value = url
+  listenScanning(ticket)
 }
 
 watch(() => props.show, (newValue) => {

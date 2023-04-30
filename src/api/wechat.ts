@@ -5,3 +5,14 @@ export function fetchWechatQRCode() {
     url: '/wx/selectQrCode',
   })
 }
+
+// wx/getUserStatus
+export function fetchUserStatus(ticket:string){
+  return get({
+    url:'wx/getUserStatus',
+    data:{
+      ticket
+    }
+  })
+
+}
