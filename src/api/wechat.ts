@@ -7,12 +7,11 @@ export function fetchWechatQRCode() {
 }
 
 // wx/getUserStatus
-export function fetchUserStatus(ticket:string){
+export function fetchUserStatus(ticket: string) {
   return get({
-    url:'wx/getUserStatus',
-    data:{
-      ticket
-    }
+    url: 'wx/getUserStatus',
+    data: {
+      ticket,
+    },
   })
-
 }

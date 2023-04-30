@@ -61,11 +61,11 @@ dataSources.value.forEach((item, index) => {
     updateChatSome(+uuid, index, { loading: false })
 })
 
-const userChatCount = computed(()=>chatStore.getUserAllChatCount)
-const needFellowWechat = computed(()=>APP_TIMES_LOGIN>0&&!userStore.userInfo.hadFellowWechat&&userChatCount.value>APP_TIMES_LOGIN)
+const userChatCount = computed(() => chatStore.getUserAllChatCount)
+const needFellowWechat = computed(() => APP_TIMES_LOGIN > 0 && !userStore.userInfo.hadFellowWechat && userChatCount.value > APP_TIMES_LOGIN)
 async function handleSubmit() {
-  if(needFellowWechat){
-    //微信登录
+  if (needFellowWechat.value) {
+    // 微信登录
     showWeChatModal()
     return
   }

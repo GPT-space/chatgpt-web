@@ -59,25 +59,23 @@ const handleReScan = () => {
 
 // getQrCodeUrl()
 
-/**监听扫码 */
-const listenScanning=async (ticket:string)=>{
-  if(!ticket)return
+/** 监听扫码 */
+const listenScanning = async (ticket: string) => {
+  if (!ticket)
+    return
 
-  while(true){
-    if(!showModal.value)return
-    const {data}=await fetchUserStatus(ticket)
-  console.log('---fetchUserStatus',data);
-  await sleep(1000)
+  while (true) {
+    if (!showModal.value)
+      return
+    const { data } = await fetchUserStatus(ticket)
+    console.log('---fetchUserStatus', data)
+    await sleep(1000)
   }
- 
-  
-
-  
-} 
+}
 
 const fetchData = async () => {
   const { data } = await fetchWechatQRCode()
-  const {ticket}=data||{}
+  const { ticket } = data || {}
   const url = makeQRCodeUrl(ticket)
   qrCodeUrl.value = url
   listenScanning(ticket)
