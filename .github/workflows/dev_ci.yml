@@ -24,6 +24,7 @@ jobs:
           ACCOUNT_NEED_LOGIN: 'false'
           TIMEOUT_MS: '100000'
           MAX_REQUEST_PER_HOUR: '20'
+          VITE_APP_TIMES_LOGIN: '1'
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         with:
           host: ${{ secrets.HOST_20M }}
@@ -31,7 +32,7 @@ jobs:
           # key: ${{ secrets.DEPLOY_SECRET }}
           password: ${{ secrets.PASSWORD_20M }}
           # script: cd [path] && git pull && sudo supervisorctl restart param
-          envs: DEV_PROJECT_SERVER_LINUX_PATH,LISTEN_IP,EXPOSE_PORT,JWT_SECRET_KEY,DATABASE_NAME,DATABASE_PORT,DATABASE_HOST_NAME,DATABASE_USER_NAME,DATABASE_PASSWORD,ACCOUNT_NEED_LOGIN,TIMEOUT_MS,MAX_REQUEST_PER_HOUR,OPENAI_API_KEY
+          envs: DEV_PROJECT_SERVER_LINUX_PATH,LISTEN_IP,EXPOSE_PORT,JWT_SECRET_KEY,DATABASE_NAME,DATABASE_PORT,DATABASE_HOST_NAME,DATABASE_USER_NAME,DATABASE_PASSWORD,ACCOUNT_NEED_LOGIN,TIMEOUT_MS,MAX_REQUEST_PER_HOUR,OPENAI_API_KEY,VITE_APP_TIMES_LOGIN
           script: |
             cd $DEV_PROJECT_SERVER_LINUX_PATH
             git checkout develop
@@ -51,4 +52,5 @@ jobs:
               -e TIMEOUT_MS=$TIMEOUT_MS \
               -e MAX_REQUEST_PER_HOUR=$MAX_REQUEST_PER_HOUR \
               -e OPENAI_API_KEY=$OPENAI_API_KEY \
+              -e VITE_APP_TIMES_LOGIN=$VITE_APP_TIMES_LOGIN \
               chatgpt-web-dev
