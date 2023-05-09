@@ -9,6 +9,7 @@ import userRouter from './controller/user.controller'
 import { addChatHistory } from './service/chatHistory.service'
 import { auth } from './middleware/auth'
 import { actorRouter, historyRouter } from './controller'
+import path from 'path'
 
 const app = express()
 const router = express.Router()
@@ -107,5 +108,11 @@ app.use('/api/chat/user', userRouter)
 app.use('/api/chat/history', historyRouter)
 app.use('/api/chat/actor', actorRouter)
 app.set('trust proxy', 1)
+
+//handle 404
+app.use(( _, res, __) => {
+  const filePath=path.resolve(__dirname,'..','public/index.html')
+  res.status(200).sendFile(filePath)
+})
 
 app.listen(3002, () => globalThis.console.log('Server is running on port 3002'))
